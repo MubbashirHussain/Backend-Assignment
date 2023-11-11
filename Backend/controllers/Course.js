@@ -29,8 +29,19 @@ const CourseControllers = {
     },
     GetAll: async (req, res) => {
         try {
-            let Data = await Courses.find()
-            res.send(Data)
+
+            let { pageNo, pageSize } = req.query
+            let skipVal = parseInt((pageNo - 1) * pageSize);
+
+            if(req.query && pageNo && pageSize){
+                let Data = await Courses.find().skip(skipVal).limit(pageSize)
+                res.send(Data)
+            }else{
+                let Data = await Courses.find()
+                res.send(Data)
+            }
+            // let Data = await Courses.find()
+            // res.status(200).send(Data)
         } catch (err) {
             console.log(err)
             res.status(404).send(err)

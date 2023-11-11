@@ -14,18 +14,18 @@ const Form = () => {
 
     React.useEffect(() => {
         if (params.id) {
-            Get('courses', params.id).then((res) => setInputObj(res.data)).catch((err) => console.log(err))
+            Get('api/courses', params.id).then((res) => setInputObj(res.data)).catch((err) => console.log(err))
         }
     }, [])
 
     let getValues = (e: any) => {
         setInputObj({ ...InputObj, [e.target.name]: e.target.value })
     }
-    let submitbtn = (e: any) => {
+    let submitbtn = () => {
         if (params.id) {
-            Put('courses', params.id, InputObj)
+            Put('api/courses', params.id, InputObj)
         } else {
-            Post('courses', InputObj)
+            Post('api/courses', InputObj)
         }
     }
     return (

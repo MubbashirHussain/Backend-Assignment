@@ -10,17 +10,17 @@ function Home() {
     let Navigate = useNavigate()
 
     useEffect(() => {
-        Get('courses').then((res) => setData(res.data))
+        Get('/api/courses').then((res) => setData(res.data))
             .catch((err) => { console.log(err) })
     }, [])
     console.log(Data)
 
     let DeleteFx = (id: string) => {
-        Delete('courses', id).then((res) => {
+        Delete('/courses', id).then((res) => {
             console.log(res)
 
             let Obj = Data.findIndex((x: any) => x._id === id)
-            let newData = Data.splice(Obj, 1)
+            Data.splice(Obj, 1)
             setData([...Data])
         })
     }
